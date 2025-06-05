@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { BentoGrid } from "./Practice/BentoGrid";
 import { BillingInformation } from "./Practice/BillingInformation";
 import { FlashCards } from "./Practice/FlashCards";
@@ -28,6 +29,7 @@ function App() {
           <ConferenceTicketGenerator />
           <BillingInformation />
           <CountryPage />
+          <SpeedInsights />
         </div>
       </div>
     </>
