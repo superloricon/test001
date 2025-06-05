@@ -1,6 +1,5 @@
 import { BentoGrid } from "./Practice/BentoGrid";
-// import { BillingInformation } from "./Practice/BillingInformation";
-// import { ConferenceTicketGenerator } from "./Practice/ConferenceTicketGenerator";
+import { BillingInformation } from "./Practice/BillingInformation";
 import { FlashCards } from "./Practice/FlashCards";
 import { PricingTable } from "./Practice/PricingTable";
 import { Textarea } from "./Practice/Textarea";
@@ -8,7 +7,7 @@ import { ToastButton } from "./Practice/ToastButton";
 import { Toaster } from "react-hot-toast";
 import "../src/index.css";
 import { ConferenceTicketGenerator } from "./Practice/ConferenceTicketGenerator";
-// import { CountryPage } from "./Practice/CountryPage";
+import { CountryPage } from "./Practice/CountryPage";
 
 function App() {
   return (
@@ -27,8 +26,8 @@ function App() {
           <ToastButton />
           <BentoGrid />
           <ConferenceTicketGenerator />
-          {/* <BillingInformation />
-          <CountryPage /> */}
+          <BillingInformation />
+          <CountryPage />
         </div>
       </div>
     </>
