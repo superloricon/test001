@@ -1,4 +1,3 @@
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { BentoGrid } from "./Practice/BentoGrid";
 import { BillingInformation } from "./Practice/BillingInformation";
 import { FlashCards } from "./Practice/FlashCards";
@@ -9,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import "../src/index.css";
 import { ConferenceTicketGenerator } from "./Practice/ConferenceTicketGenerator";
 import { CountryPage } from "./Practice/CountryPage";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
           <ConferenceTicketGenerator />
           <BillingInformation />
           <CountryPage />
-          <SpeedInsights />
+          <Analytics />
         </div>
       </div>
     </>
