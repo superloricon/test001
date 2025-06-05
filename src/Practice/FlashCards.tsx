@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FiChevronLeft } from "react-icons/fi";
+import { FiChevronRight } from "react-icons/fi";
 
 interface FlashCard {
   id: number;
@@ -10,7 +12,7 @@ interface FlashCard {
 const initialCards: FlashCard[] = [
   {
     id: 1,
-    question: "What is React?",
+    question: "What is the difference between var,let,and const?",
     answer: "A JavaScript library for building user interfaces",
     isCompleted: false,
   },
@@ -57,30 +59,30 @@ export const FlashCards = () => {
 
   return (
     <div className="h-full w-full px-4 md:px-20">
-      <div className="font-bold text-xl sm:text-3xl mb-2">
+      <div className="font-bold text-xl sm:text-3xl md:pb-10 pb-8">
         Practice 02: FlashCard
       </div>
 
       {/* Progress Bar */}
-      <div className="flex justify-between mb-2 border-black-500 border-2 rounded-xl p-1 items-center">
+      <div className="flex justify-between mb-2 border-[#bfbfbf] border-2 rounded-xl p-1 items-center font-semibold font-quicksand">
         <div className="flex items-center w-full">
           <div
-            className="h-8 bg-blue-500 rounded-lg transition-all duration-300 w-10/12 items-center flex"
+            className="h-8 bg-[#bfbfbf] rounded-lg transition-all duration-300 items-center flex"
             style={{ width: `${progress}%` }}
           />
-          <p className="ml-1"> {Math.round(progress)}%</p>
+          <p className="ml-2"> {Math.round(progress)}%</p>
         </div>
-        <p className="w-3/12 sm:w-1/12 text-end mr-1 ">
+        <p className="min-w-[50px] xs:min-w-[60px] text-end mr-1 ">
           {currentIndex + 1} of {cards.length}
         </p>
       </div>
       {/* Flash Card */}
-      <div className="p-1 flex flex-col gap-1 border-black-500 border-2 rounded-xl">
+      <div className="p-1 flex flex-col gap-1 border-black-500 border-2 rounded-xl font-semibold font-quicksand border-[#bfbfbf]">
         <div
           className="relative h-64 w-full cursor-pointer flex items-center justify-center bg-gray-100 rounded-lg"
           onClick={handleFlipAndComplete}
         >
-          <p className="text-xl text-center">
+          <p className="text-3xl text-center font-black px-8">
             {isFlipped
               ? cards[currentIndex].answer
               : cards[currentIndex].question}
@@ -88,13 +90,14 @@ export const FlashCards = () => {
         </div>
 
         {/* Navigation Controls */}
-        <div className="flex justify-between bg-gray-100 rounded-lg text-black font-medium h-10 gap-2 text-sm/4 sm:text-base">
+        <div className="flex justify-between bg-gray-100 rounded-lg text-black font-semibold h-10 gap-2 text-sm/4 sm:text-xl w-full px-2">
           <button
             onClick={handlePrev}
-            className="w-full rounded hover:bg-gray-300 cursor-pointer text-left text-gray-600"
+            className="w-full rounded hover:bg-gray-200 cursor-pointer text-left text-gray-600 flex items-center "
             disabled={currentIndex === 0}
           >
-            <p className="ml-2 sm:ml-4"> Previous</p>
+            <FiChevronLeft />
+            <p className="ml-1"> Previous</p>
           </button>
 
           <button
@@ -106,9 +109,10 @@ export const FlashCards = () => {
 
           <button
             onClick={handleNext}
-            className="w-full rounded hover:bg-gray-300 text-end text-gray-600"
+            className="w-full rounded hover:bg-gray-300  text-gray-600 flex items-center justify-end"
           >
-            <p className="mr-2 sm:mr-4 "> Next</p>
+            <p className="mr-1"> Next</p>
+            <FiChevronRight />
           </button>
         </div>
       </div>

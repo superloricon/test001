@@ -33,7 +33,7 @@ export const StarRating: React.FC<StarRatingProps> = ({
     return (
       <span
         key={index}
-        className={`cursor-pointer text-[32px] sm:text-[48px] w-10 sm:w-14  ${
+        className={`cursor-pointer text-[32px] md:text-[24px] w-10 md:size-7 xl:text-[28px] xl:w-10 ${
           isFilled
             ? "text-yellow-500"
             : isHalfFilled

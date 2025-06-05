@@ -1,18 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{html,js,tsx,ts}"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
+    fontFamily: {
+      quicksand: ["Quicksand", "sans-serif"],
+    },
+
     extend: {
-      transformStyle: {
-        "preserve-3d": "preserve-3d",
-      },
-      rotate: {
-        "y-180": "rotateY(180deg)",
-      },
-      backfaceVisibility: {
-        hidden: "hidden",
+      colors: {},
+      screens: {
+        xs: "300px",
+        sm: "641px",
+        lg: "1025px",
+        tablet: "641px",
+        desktop: "1025px",
       },
     },
   },
-  plugins: [],
 };

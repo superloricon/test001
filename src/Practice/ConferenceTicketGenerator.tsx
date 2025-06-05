@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useRef, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -12,7 +12,7 @@ interface FormValues {
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
   email: Yup.string()
-    .email("Invalid email format")
+    .email("Please enter a valid email address")
     .required("Email is required"),
   username: Yup.string().required("username is required"),
   avatar: Yup.mixed()
@@ -25,16 +25,21 @@ const validationSchema = Yup.object({
       }
       return false;
     })
-    .test("fileSize", "File is too large. Max size is 200KB", (value) => {
-      if (value && value instanceof File) {
-        return value.size <= 200 * 1024; // 200KB
+    .test(
+      "fileSize",
+      "File too large. Please upload a photo under 500 KB",
+      (value) => {
+        if (value && value instanceof File) {
+          return value.size <= 200 * 1024; // 200KB
+        }
+        return false;
       }
-      return false;
-    }),
+    ),
 });
 
 export const ConferenceTicketGenerator = () => {
   const [ticket, setTicket] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const formik = useFormik({
     initialValues: {
@@ -54,10 +59,10 @@ export const ConferenceTicketGenerator = () => {
 
   return (
     <div className="h-full w-full">
-      <div className="font-bold text-3xl mb-2">
-        Practice 06: Conference ticket generator
+      <div className="font-bold text-xl md:text-3xl pb-8 md:pb-10 px-4 md:px-20">
+        Practice 06: Conference Ticket Generator
       </div>
-      <div className="w-full h-full relative ">
+      <div className="w-full relative">
         <img
           className="absolute w-2/4 h-4/4 bottom-0 z-[-1]"
           src="Images/CTicketGenerator/pattern-squiggly-line-bottom-desktop.svg"
@@ -74,76 +79,86 @@ export const ConferenceTicketGenerator = () => {
           alt="bg-background-desktop"
         />
 
-        <div className="flex justify-center h-[800px] pt-10">
+        <div className="flex justify-center py-10 px-4">
           <form
             onSubmit={formik.handleSubmit}
             className="text-white w-[450px] "
           >
-            {/* Name Field */}
-            <div className="flex items-center gap-2 justify-center font-bold ">
-              <img
-                src="Images/CTicketGenerator/logo-mark.svg"
-                className="w-5 h-5"
-                alt="logo-mark"
-              />
-              <p>Coding Conf</p>
+            <div className="flex flex-col items-center">
+              <div className="flex items-center gap-2 justify-center font-bold ">
+                <img
+                  src="Images/CTicketGenerator/logo-mark.svg"
+                  className="w-5 h-5"
+                  alt="logo-mark"
+                />
+                <p>Coding Conf</p>
+              </div>
+              <p className="font-bold text-center mt-8 text-2xl max-w-[300px] sm:max-w-[400px] sm:text-3xl ">
+                Your Journey to Coding Conf 2025 Starts Here!
+              </p>
+              <p className="font-semibold text-gray-300 text-center mt-4 text-base max-w-[250px] sm:text-xl sm:max-w-[350px] ">
+                Secure your spot at next year's biggest coding conference.
+              </p>
             </div>
-            <p className="font-bold text-3xl text-center mt-8">
-              Your Journey to Coding Conf 2025 Starts Here!
-            </p>
-            <p className="font-semibold text-gray-300 text-sm text-center mt-4">
-              Secure your spot at next year's biggest coding conference.
-            </p>
-
             <div className="pt-8 flex flex-col gap-4">
-              {/* Avatar Upload Field */}
+              {/* Avantar Field */}
               <div>
-                <label
-                  htmlFor="avatar"
-                  className="block text-sm font-medium mb-1"
-                >
+                <label htmlFor="avatar" className="block font-medium mb-2">
                   Upload Avatar
                 </label>
-                {/* Hidden input */}
+
                 <input
                   type="file"
                   id="avatar"
                   name="avatar"
                   accept="image/png, image/jpeg, image/jpg"
+                  ref={fileInputRef}
                   onChange={(e) => {
                     const file = e.currentTarget.files?.[0];
                     formik.setFieldValue("avatar", file || null);
                   }}
                   onBlur={formik.handleBlur}
                   className="hidden"
-                  aria-required="true"
-                  aria-describedby="avatarError"
                 />
-                {/* Custom upload button */}
-                <label
-                  htmlFor="avatar"
-                  className="flex h-32 w-full border border-gray-300 rounded-md cursor-pointer items-center justify-center bg-[#1c163c] hover:bg-[#312361] flex-col"
+
+                <div
+                  className="flex h-auto min-h-32 w-full border border-gray-300 border-dashed rounded-md items-center justify-center bg-[#1c163c] hover:bg-[#312361] flex-col p-4 cursor-pointer"
+                  onClick={() => {
+                    if (!formik.values.avatar) {
+                      fileInputRef.current?.click();
+                    }
+                  }}
                 >
                   {formik.values.avatar ? (
-                    // If file is selected, show image preview and file info
-                    <div className="text-center p-2 w-full h-full flex flex-col items-center">
+                    <div className="text-center w-full flex flex-col items-center">
                       {/* Image preview */}
-                      <div className="h-20 w-full flex mb-1">
+                      <div className="h-20 w-full flex mb-2">
                         <img
                           src={URL.createObjectURL(formik.values.avatar)}
                           alt="Preview"
                           className="w-full h-full object-contain"
                         />
                       </div>
-                      <p className="text-white font-medium truncate max-w-full">
-                        {formik.values.avatar.name}
-                      </p>
-                      {/* <p className="text-gray-400 text-sm">
-                      {(formik.values.avatar.size / 1024).toFixed(2)} KB
-                    </p> */}
+
+                      {/* Buttons */}
+                      <div className="flex gap-2 mt-3">
+                        <button
+                          type="button"
+                          onClick={() => formik.setFieldValue("avatar", null)}
+                          className="px-3 py-1 text-sm bg-[#322e51] text-white rounded underline"
+                        >
+                          Remove Image
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => fileInputRef.current?.click()}
+                          className="px-3 py-1 text-sm bg-[#322e51] text-white rounded"
+                        >
+                          Change Image
+                        </button>
+                      </div>
                     </div>
                   ) : (
-                    // If no file selected, show upload prompt
                     <>
                       <div className="bg-[#322e51] size-10 p-2 rounded-lg">
                         <img
@@ -156,20 +171,21 @@ export const ConferenceTicketGenerator = () => {
                       </p>
                     </>
                   )}
-                </label>
+                </div>
 
+                {/* 错误信息 */}
                 {formik.touched.avatar && formik.errors.avatar ? (
                   <div className="text-red-500 text-sm mt-1" id="avatarError">
                     {formik.errors.avatar}
                   </div>
                 ) : (
-                  <div className="flex w-full gap-1">
+                  <div className="flex w-full gap-1 mt-4">
                     <img
                       src="Images/CTicketGenerator/icon-info.svg"
                       alt="icon-info"
                     />
-                    <p className="text-gray-400">
-                      Upload your photo (JPG or PNG, max size : 500KB)
+                    <p className="text-gray-400 text-xs sm:text-base">
+                      Upload your photo (JPG or PNG, max size: 500KB)
                     </p>
                   </div>
                 )}
@@ -177,23 +193,22 @@ export const ConferenceTicketGenerator = () => {
 
               {/* Name Field */}
               <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium mb-1"
-                >
+                <label htmlFor="name" className="block font-medium mb-2">
                   Full Name
                 </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  className="bg-gray-500/20 mt-1 block w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 text-white"
-                  aria-required="true"
-                  aria-describedby="nameError"
-                />
+                <div className="border-[#a3a1b2] border rounded-lg p-0.5 mt-1">
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="bg-gray-500/20  block w-full p-2 border border-[#474364] rounded-lg focus:outline-none text-white hover:bg-[#312361] focus:ring-2 focus:ring-indigo-600"
+                    aria-required="true"
+                    aria-describedby="nameError"
+                  />
+                </div>
                 {formik.touched.name && formik.errors.name ? (
                   <div className="text-red-500 text-sm mt-1" id="nameError">
                     {formik.errors.name}
@@ -202,10 +217,7 @@ export const ConferenceTicketGenerator = () => {
               </div>
               {/* Email Field */}
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium mb-1"
-                >
+                <label htmlFor="email" className="block font-medium mb-2">
                   Email Address
                 </label>
                 <input
@@ -215,7 +227,7 @@ export const ConferenceTicketGenerator = () => {
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  className="bg-gray-500/20 mt-1 block w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 text-white"
+                  className="bg-gray-500/20 mt-1 block w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 text-white focus:ring-indigo-600 hover:bg-[#312361]"
                   aria-required="true"
                   aria-describedby="emailError"
                   placeholder="example@email.com"
@@ -228,10 +240,7 @@ export const ConferenceTicketGenerator = () => {
               </div>
               {/* userName Field */}
               <div>
-                <label
-                  htmlFor="username"
-                  className="block text-sm font-medium mb-1"
-                >
+                <label htmlFor="username" className="block font-medium mb-2">
                   Github Username
                 </label>
                 <input
@@ -242,7 +251,7 @@ export const ConferenceTicketGenerator = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   placeholder="@yourusername"
-                  className="bg-gray-500/20 mt-1 block w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 text-white"
+                  className="bg-gray-500/20 mt-1 block w-full p-2 border border-gray-400  rounded-lg focus:outline-none text-white focus:ring-2 focus:ring-indigo-600 hover:bg-[#312361]"
                   aria-required="true"
                   aria-describedby="nameError"
                 />
@@ -255,7 +264,7 @@ export const ConferenceTicketGenerator = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full py-2 bg-[#f67464] text-[#53283a] font-black rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mt-2"
+                className="w-full py-2 bg-[#f67464] text-[#53283a] font-black rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 mt-2"
               >
                 Generate My Ticket
               </button>

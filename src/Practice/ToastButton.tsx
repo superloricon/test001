@@ -21,8 +21,8 @@ export const ToastButton: React.FC = () => {
   };
 
   return (
-    <div className="h-full w-full pb-12 px-4 md:px-20">
-      <div className="font-bold text-xl md:text-3xl mb-2">
+    <div className="h-full w-full px-4 md:px-20">
+      <div className="font-bold text-xl md:text-3xl md:pb-10 pb-8">
         Practice 04: Toast
       </div>
       <div className="flex flex-col space-y-4">

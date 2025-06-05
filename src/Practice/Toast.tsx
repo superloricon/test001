@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 interface ToastProps {
-  message: string;
+  message?: string;
   type?: "success" | "error" | "warning" | "info";
   duration?: number;
   onClose?: () => void;

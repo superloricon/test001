@@ -58,8 +58,8 @@ export const PricingTable: React.FC = () => {
   const [hoveredCol, setHoveredCol] = useState<number | null>(null);
 
   return (
-    <div className="h-full w-full pb-12 px-4 md:px-20">
-      <div className="font-bold sm:text-3xl mb-2 text-xl">
+    <div className="h-full w-full px-4 md:px-20">
+      <div className="font-bold sm:text-3xl text-xl md:pb-10 pb-8 ">
         Practice 03: Pricing Table
       </div>
       <div className="flex flex-col items-center justify-center ">
@@ -88,7 +88,7 @@ export const PricingTable: React.FC = () => {
                   >
                     <div className="flex h-full flex-col items-center">
                       <p
-                        className={`font-semibold sm:text-base text-xs w-full text-center mt-4 max-w-24 ${
+                        className={`font-semibold sm:text-sm text-xs w-full text-center mt-4 max-w-24 lg:text-lg ${
                           hoveredCol === index
                             ? "bg-blue-600 rounded-xl text-white"
                             : "text-blue-500"
@@ -97,14 +97,15 @@ export const PricingTable: React.FC = () => {
                         {plan.name}
                       </p>
                       <p
-                        className={`font-bold sm:text-[48px]/[64px] md:text-[64px]/[90px] text-2xl ${
+                        className={`font-bold sm:text-[48px]/[78px] md:text-[50px]/[80px] lg:text-[64px]/[94px] text-2xl ${
                           hoveredCol === index ? "text-white" : "text-black"
                         }`}
                       >
                         {plan.price}
                       </p>
+
                       <p
-                        className={`font-semibold sm:text-sm text-[9px] text-center ${
+                        className={`font-semibold text-center text-[9px] sm:text-xs lg:text-base ${
                           hoveredCol === index
                             ? "text-gray-400"
                             : "text-gray-500"
@@ -120,7 +121,7 @@ export const PricingTable: React.FC = () => {
             <tbody>
               {featureTitles.map((feature, rowIndex) => (
                 <tr key={feature} className="h-10">
-                  <td className="text-gray-900 bg-gray-100 text-[9px] font-bold sm:text-base sm:px-4 sm:text-left text-center">
+                  <td className="text-gray-900 bg-gray-100 text-[9px] px-1 font-bold text-center sm:text-xs  sm:px-2 lg:px-4 xl:text-left xl:text-sm">
                     {feature}
                   </td>
                   {pricingPlans.map((plan, colIndex) => (
@@ -158,7 +159,7 @@ export const PricingTable: React.FC = () => {
                     onMouseEnter={() => setHoveredCol(index)}
                     onMouseLeave={() => setHoveredCol(null)}
                   >
-                    <div className="flex justify-center h-14 sm:text-base text-[9px] md:text-left text-center mx-2 items-center">
+                    <div className="flex justify-center h-14 lg:text-base text-[9px] sm:text-sm md:text-left text-center mx-2 items-center">
                       <p className="font-bold">Get Started →</p>
                     </div>
                   </td>
