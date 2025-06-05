@@ -1,7 +1,7 @@
 import { useForm, useField } from "@tanstack/react-form";
 import { useState } from "react";
 import Select from "react-select";
-import usStates from "/Users/paymerm7/Documents/fe-practice/src/json/usStates.json";
+import usStates from "../json/usStates.json";
 import { toast } from "react-hot-toast";
 
 export const BillingInformation = () => {

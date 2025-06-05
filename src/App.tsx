@@ -6,8 +6,7 @@ import { PricingTable } from "./Practice/PricingTable";
 import { Textarea } from "./Practice/Textarea";
 import { ToastButton } from "./Practice/ToastButton";
 import { Toaster } from "react-hot-toast";
-
-import "/Users/paymerm7/Documents/fe-practice/src/index.css";
+import "../src/index.css";
 import { ConferenceTicketGenerator } from "./Practice/ConferenceTicketGenerator";
 // import { CountryPage } from "./Practice/CountryPage";
 
