@@ -236,15 +236,15 @@ export const BillingInformation = () => {
       </div>
       <form onSubmit={handleFormSubmit} className="py-10">
         <p className="font-semibold text-xl">Billing Information</p>
-        <p className="text-gray-500 text-sm mt-1">
+        <p className="text-gray-500 text-sm mt-2">
           Update your billing details and addresss
         </p>
-        <div className="flex justify-between border-gray-300 border-b py-8 ">
-          <div className="w-4/12">
+        <div className="flex justify-between border-gray-300 border-b pt-8 pb-4 flex-col gap-5 md:flex-row md:gap-0">
+          <div className="w-full md:w-4/12">
             <p>Payment details</p>
           </div>
-          <div className="w-8/12 gap-4 flex flex-col">
-            <div className="space-y-1">
+          <div className="w-full gap-5 flex flex-col md:w-8/12 ">
+            <div className="space-y-2">
               <label htmlFor="cardNumber">Card Number</label>
               <div className="relative w-full h-10 items-center flex">
                 {cardType && (
@@ -278,7 +278,7 @@ export const BillingInformation = () => {
                 </div>
               )}
             </div>
-            <div className="space-y-1">
+            <div className="space-y-2">
               <label htmlFor="cardholderName">Cardholder Name</label>
               <input
                 id="cardholderName"
@@ -295,7 +295,7 @@ export const BillingInformation = () => {
               )}
             </div>
             <div className="flex justify-between gap-8">
-              <div className="w-full space-y-1">
+              <div className="w-full space-y-2">
                 <label htmlFor="expiry">Expiry</label>
                 <input
                   id="expiry"
@@ -329,11 +329,11 @@ export const BillingInformation = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-between border-gray-300 border-b py-8 ">
-          <div className="w-4/12">
+        <div className="flex border-gray-300 border-b pt-6 pb-4 flex-col gap-5 md:gap-0 md:justify-between md:flex-row">
+          <div className="w-full md:w-4/12">
             <p>Email address</p>
           </div>
-          <div className="w-8/12 space-y-1">
+          <div className="w-full space-y-2 md:w-8/12 ">
             <label htmlFor="email">Email </label>
             <input
               id="email"
@@ -350,12 +350,12 @@ export const BillingInformation = () => {
             )}
           </div>
         </div>
-        <div className="flex justify-between border-gray-300 border-b py-8 ">
-          <div className="w-4/12">
+        <div className="flex border-gray-300 border-b pt-6 pb-4 gap-5 flex-col md:gap-0 md:justify-between md:flex-row">
+          <div className="w-full md:w-4/12">
             <p>Address details</p>
           </div>
-          <div className="w-8/12 gap-4 flex flex-col">
-            <div className="space-y-1">
+          <div className="w-full gap-5 flex flex-col md:w-8/12">
+            <div className="space-y-2">
               <label htmlFor="country">Country / Region</label>
               <Select
                 inputId="country"
@@ -371,7 +371,7 @@ export const BillingInformation = () => {
               />
             </div>
 
-            <div className="space-y-1">
+            <div className="space-y-2">
               <label htmlFor="address1">Address</label>
               <input
                 id="address1"
@@ -397,7 +397,7 @@ export const BillingInformation = () => {
               )}
             </div>
             <div className="flex justify-between gap-8 ">
-              <div className="w-full space-y-1">
+              <div className="w-full space-y-2">
                 <label htmlFor="city">City</label>
                 <input
                   id="city"
@@ -413,7 +413,7 @@ export const BillingInformation = () => {
                 )}
               </div>
 
-              <div className="w-full space-y-1">
+              <div className="w-full space-y-2">
                 <label htmlFor="state">State</label>
                 <Select
                   inputId="state"
@@ -426,7 +426,7 @@ export const BillingInformation = () => {
                   onChange={(selectedOption) => {
                     stateField.setValue(selectedOption?.value ?? "");
                   }}
-                  className="w-full"
+                  className="w-full min-w-[100px]"
                   placeholder="State"
                 />
                 {stateField.state.meta.errors.length > 0 && isDirty && (
@@ -436,7 +436,7 @@ export const BillingInformation = () => {
                 )}
               </div>
 
-              <div className="w-full space-y-1">
+              <div className="w-full space-y-2">
                 <label htmlFor="zip">Zip</label>
                 <input
                   id="zip"
@@ -456,7 +456,7 @@ export const BillingInformation = () => {
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="w-52 bg-gray-100 text-gray-400 font-semibold py-2 rounded"
+                className="bg-gray-100 text-gray-400 font-semibold  rounded-lg py-4 w-48 mt-4 md:py-2 md:w-52"
               >
                 Save changes
               </button>
