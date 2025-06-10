@@ -44,13 +44,23 @@ export const CountryPage = () => {
   };
 
   useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((res) => res.json())
-      .then((data) => {
-        const sorted = data.sort((a: Country, b: Country) =>
+    fetch(
+      "https://restcountries.com/v3.1/all?fields=name,flags,population,area,region,independent,unMember"
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data: Country[]) => {
+        const sorted = data.sort((a, b) =>
           a.name.common.localeCompare(b.name.common)
         );
         setCountries(sorted);
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
       });
   }, []);
 
@@ -87,11 +97,16 @@ export const CountryPage = () => {
     });
 
   return (
-    <div className="w-full h-[800px] bg-[#1c1d1e] relative">
+    <div className="w-full h-[1300px] bg-[#1c1d1e] relative md:h-[800px]">
       <div className="relative h-[33%] w-full">
         <img
+          src="Images/CountryPage/hero-image-sm.jpg"
+          className="absolute w-full h-full rounded-t-3xl z-10 flex object-cover md:hidden"
+          alt="hero-image"
+        />
+        <img
           src="Images/CountryPage/hero-image.jpg"
-          className="absolute w-full h-full rounded-t-3xl z-10"
+          className="absolute w-full h-full rounded-t-3xl z-10 hidden md:flex"
           alt="hero-image"
         />
         <img
@@ -100,26 +115,25 @@ export const CountryPage = () => {
           alt="logo"
         />
       </div>
-
-      <div className="absolute bottom-0 h-3/4 text-white px-8 w-full z-20">
-        <div className="bg-[#1c1d1e] h-full rounded-t-xl border-2 border-gray-800 p-5 flex w-full flex-col gap-6">
-          <div className="flex justify-between w-full h-10">
-            <div className="flex justify-center items-center">
+      <div className="absolute bottom-0 h-3/4 text-white px-3 md:px-8 w-full z-20">
+        <div className="bg-[#1c1d1e] h-full rounded-t-xl border-2 border-gray-800 py-5 px-3 flex w-full flex-col gap-6 md:p-5">
+          <div className="flex flex-col w-full h-full md:h-10 md:justify-between md:flex-row gap-6 md:gap-4">
+            <div className="flex justify-start items-center  md:justify-center">
               <p>Found {filteredCountries.length} countries</p>
             </div>
-            <div className="rounded-xl bg-gray-600 justify-center items-center flex w-[400px] px-4">
+            <div className="rounded-xl bg-gray-600 justify-center items-center flex w-full p-4 md:w-[400px]">
               <input
                 type="text"
                 placeholder="Search for a country..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-transparent text-white w-full outline-none placeholder-gray-300"
+                className="bg-transparent text-white w-full outline-none placeholder-gray-300 text-center md:text-left"
               />
             </div>
           </div>
 
-          <div className="flex justify-between w-full">
-            <div className="w-[15%] flex flex-col gap-5 pr-8">
+          <div className="flex flex-col w-full md:justify-between md:flex-row">
+            <div className="w-full flex flex-col gap-5 md:pr-8 md:w-[15%]">
               <div className="mt-1.5">
                 <p>Sort By</p>
                 <select
@@ -142,7 +156,7 @@ export const CountryPage = () => {
                       <button
                         key={region}
                         onClick={() => toggleRegion(region)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
+                        className={`px-3 py-2 rounded-full text-sm font-medium transition-colors md:px-4
                 ${isSelected ? "bg-gray-700 " : "bg-none hover:bg-gray-600"}`}
                       >
                         {region}
@@ -176,21 +190,21 @@ export const CountryPage = () => {
               </div>
             </div>
 
-            <div className="w-[85%] flex flex-col">
-              <div className="h-10 items-center flex gap-12 border-b-2 border-gray-800 justify-stretch">
-                <div className="flex w-1/4">
+            <div className="w-full flex flex-col mt-5 md:w-[85%] md:mt-0">
+              <div className="h-10 items-center flex gap-4 border-b-2 border-gray-800 justify-stretch text-sm md:gap-12 md:text-base">
+                <div className="flex w-full md:w-1/4">
                   <p>Flag</p>
                 </div>
                 <div className="flex w-full">
                   <p>Name</p>
                 </div>
-                <div className="flex w-full">
+                <div className="flex w-full ">
                   <p>Population</p>
                 </div>
-                <div className="flex w-full">
+                <div className="md:flex w-full hidden">
                   <p>Area (km²)</p>
                 </div>
-                <div className="flex w-full">
+                <div className="md:flex w-full hidden">
                   <p>Region</p>
                 </div>
               </div>
@@ -199,13 +213,13 @@ export const CountryPage = () => {
                 {filteredCountries.map((country) => (
                   <div
                     key={country.name.common}
-                    className="flex gap-12 justify-stretch items-center"
+                    className="flex gap-4 justify-stretch items-center text-sm md:text-base md:gap-12"
                   >
-                    <div className="flex w-1/4">
+                    <div className="flex w-full md:w-1/4">
                       <img
                         src={country.flags.png}
                         alt={`Flag of ${country.name.common}`}
-                        className="h-10 w-auto rounded-sm shadow"
+                        className="h-10 rounded-sm shadow w-20 md:w-full"
                       />
                     </div>
                     <div className="flex w-full">
@@ -214,10 +228,10 @@ export const CountryPage = () => {
                     <div className="flex w-full">
                       <p>{country.population.toLocaleString()}</p>
                     </div>
-                    <div className="flex w-full">
+                    <div className="md:flex w-full hidden">
                       <p>{country.area.toLocaleString()}</p>
                     </div>
-                    <div className="flex w-full">
+                    <div className="md:flex w-full hidden">
                       <p>{country.region}</p>
                     </div>
                   </div>

@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 import "../src/index.css";
 import { ConferenceTicketGenerator } from "./Practice/ConferenceTicketGenerator";
 import { BillingInformation } from "./Practice/BillingInformation";
-// import { CountryPage } from "./Practice/CountryPage";
+import { CountryPage } from "./Practice/CountryPage";
 import { Analytics } from "@vercel/analytics/react";
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
           <BentoGrid />
           <ConferenceTicketGenerator />
           <BillingInformation />
-          {/* <CountryPage /> */}
+          <CountryPage />
           <Analytics />
         </div>
       </div>
