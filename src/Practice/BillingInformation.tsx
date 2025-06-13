@@ -231,7 +231,7 @@ export const BillingInformation = () => {
 
   return (
     <div className="h-full w-full px-4 md:px-20">
-      <div className="font-bold text-xl md:text-3xl   ">
+      <div className="font-bold text-xl sm:text-3xl pb-8 md:pb-10 ">
         Practice 07: Billing Information
       </div>
       <form onSubmit={handleFormSubmit} className="py-10">

@@ -59,7 +59,7 @@ export const ConferenceTicketGenerator = () => {
 
   return (
     <div className="h-full w-full">
-      <div className="font-bold text-xl md:text-3xl pb-8 md:pb-10 px-4 md:px-20">
+      <div className="font-bold text-xl sm:text-3xl pb-8 md:pb-10 px-4 md:px-20">
         Practice 06: Conference Ticket Generator
       </div>
       <div className="w-full relative">

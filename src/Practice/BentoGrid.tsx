@@ -6,7 +6,7 @@ export const BentoGrid = () => {
   return (
     <div className="h-full w-full ">
       <div className="bg-[#f5f5f5] pt-10 ">
-        <div className="font-bold text-xl md:text-3xl px-4 md:px-20 pb-8 md:pb-10">
+        <div className="font-bold text-xl sm:text-3xl px-4 md:px-20 pb-8 md:pb-10">
           Practice 05: BentoGrid
         </div>
         <div className="pb-4 px-4 xl:pb-12 xl:px-20 w-full flex items-center justify-center">
