@@ -162,16 +162,6 @@ export const CountryPage = () => {
                   )}
                 />
               </div>
-              {/* <div className="rounded-xl bg-gray-600 justify-center items-center w-full p-3 hidden md:p-4 md:w-[400px] md:flex">
-              <img src="public/Images/CountryPage/Search.svg" />
-              <input
-                type="text"
-                placeholder="Search by Name, Region, Subregion"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-transparent text-white w-full outline-none placeholder-gray-300 text-center md:text-left"
-              />
-            </div> */}
             </div>
 
             <div className="flex flex-col w-full h-full md:justify-between md:flex-row ">
