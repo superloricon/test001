@@ -108,9 +108,12 @@ export const CountryPage = () => {
         </div>
       </div>
       <div
-        className={cn("w-full h-[1093px] bg-[#1c1d1e] md:h-[110q0px]", {
-          "h-[1137px]": width! < 506,
-        })}
+        className={cn(
+          "w-full h-[1093px] bg-[#1c1d1e] md:h-[1113px] lg:h-[1123px]",
+          {
+            "h-[1137px]": width! < 506,
+          }
+        )}
       >
         <div className="relative h-full w-full">
           <img
@@ -165,7 +168,7 @@ export const CountryPage = () => {
             </div>
 
             <div className="flex flex-col w-full h-full md:justify-between md:flex-row ">
-              <div className="w-full flex flex-col gap-8 md:gap-5 md:pr-8 md:w-[15%]">
+              <div className="w-full flex flex-col gap-8 md:gap-5 md:pr-6 lg:pr-8 md:w-[15%] md:min-w-[180px]">
                 <div className=" hidden md:block ">
                   <p className="mb-2">Sort By</p>
                   <select
@@ -245,46 +248,46 @@ export const CountryPage = () => {
 
               <div className="w-full flex flex-col mt-8 md:w-[85%] md:mt-1">
                 <div className="h-full items-center flex gap-8 border-b-2 border-gray-800 justify-stretch text-sm pb-4 md:gap-12 md:text-base">
-                  <div className="flex w-[50%] md:w-1/4">
+                  <div className="flex w-[50%]  min-w-[35px] md:w-1/4 md:min-w-12 md:text-xs md:max-w-14 lg:text-base ">
                     <p>Flag</p>
                   </div>
-                  <div className="flex w-full">
+                  <div className="flex w-full md:text-xs lg:text-base">
                     <p>Name</p>
                   </div>
-                  <div className="flex w-full ">
+                  <div className="flex w-full md:text-xs lg:text-base">
                     <p>Population</p>
                   </div>
-                  <div className="md:flex w-full hidden">
+                  <div className="w-full hidden md:flex md:text-xs lg:text-base">
                     <p>Area (km²)</p>
                   </div>
-                  <div className="md:flex w-full hidden">
+                  <div className="w-full hidden md:flex md:text-xs lg:text-base">
                     <p>Region</p>
                   </div>
                 </div>
 
-                <div className="flex flex-col mt-4 gap-4 overflow-y-auto max-h-[349px] md:max-h-[560px] ">
+                <div className="flex flex-col mt-4 gap-4 overflow-y-auto max-h-[349px] md:max-h-[560px] md:min-h-[520px] ">
                   {filteredCountries.map((country) => (
                     <div
                       key={country.name.common}
                       className="flex gap-8 justify-stretch items-center text-sm md:text-base md:gap-12"
                     >
-                      <div className="flex w-[50%] md:w-1/4">
+                      <div className="flex w-[50%] md:w-1/4 min-w-[35px] max-w-14 md:min-w-12">
                         <img
                           src={country.flags.png}
                           alt={`Flag of ${country.name.common}`}
-                          className="h-10 rounded-sm shadow w-full min-w-[35px] max-w-14 md:max-w-20"
+                          className="h-10 rounded-sm shadow w-full"
                         />
                       </div>
-                      <div className="flex w-full">
+                      <div className="flex w-full md:text-xs lg:text-base">
                         <p>{country.name.common}</p>
                       </div>
-                      <div className="flex w-full">
+                      <div className="flex w-full md:text-xs lg:text-base">
                         <p>{country.population.toLocaleString()}</p>
                       </div>
-                      <div className="md:flex w-full hidden">
+                      <div className="w-full hidden md:flex md:text-xs lg:text-base">
                         <p>{country.area.toLocaleString()}</p>
                       </div>
-                      <div className="md:flex w-full hidden">
+                      <div className="w-full hidden md:flex md:text-xs lg:text-base">
                         <p>{country.region}</p>
                       </div>
                     </div>
