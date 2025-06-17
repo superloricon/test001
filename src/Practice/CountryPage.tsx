@@ -140,7 +140,7 @@ export const CountryPage = () => {
               <div className="relative rounded-xl bg-gray-600 justify-center items-center w-full p-3 flex gap-2 md:p-4 md:w-[400px]">
                 {!searchTerm && !isFocused && (
                   <img
-                    src="public/Images/CountryPage/Search.svg"
+                    src="Images/CountryPage/Search.svg"
                     className="absolute mr-52 md:left-3 md:mr-0"
                   />
                 )}
