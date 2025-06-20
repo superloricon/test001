@@ -123,7 +123,7 @@ export const CountryPage = () => {
           />
           <img
             src="Images/CountryPage/hero-image.jpg"
-            className="absolute z-10 hidden object-cover w-full md:flex "
+            className="absolute z-10 hidden object-cover w-full md:flex md:min-h-[460px]"
             alt="hero-image"
           />
           <img
@@ -132,9 +132,9 @@ export const CountryPage = () => {
             alt="logo"
           />
 
-          <div className="absolute left-3 right-3 top-[120px]  bg-[#1c1d1e] text-white rounded-t-xl border-2 border-gray-800 pt-8 px-3 flex flex-col gap-8 z-20 md:gap-6 md:p-5 md:top-[35%] md:left-6 md:right-6 ">
+          <div className="absolute left-3 right-3 top-[120px] bg-[#1c1d1e] text-white rounded-t-xl border-2 border-gray-800 pt-8 px-3 flex flex-col gap-8 z-20 md:gap-6 md:p-5 md:top-[35%] md:left-6 md:right-6 ">
             <div className="flex flex-col w-full h-full md:h-10 md:justify-between max-h-[101px] md:flex-row gap-6 md:gap-4 md:max-h-full">
-              <div className="flex justify-start items-center  md:justify-center">
+              <div className="flex justify-start items-center md:justify-center">
                 <p>Found {filteredCountries.length} countries</p>
               </div>
               <div className="relative rounded-xl bg-gray-600 justify-center items-center w-full p-3 flex gap-2 md:p-4 md:w-[400px]">
@@ -247,8 +247,15 @@ export const CountryPage = () => {
               </div>
 
               <div className="w-full flex flex-col mt-8 md:w-[85%] md:mt-1">
-                <div className="h-full items-center flex gap-8 border-b-2 border-gray-800 justify-stretch text-sm pb-4 md:gap-12 md:text-base">
-                  <div className="flex w-[50%]  min-w-[35px] md:w-1/4 md:min-w-12 md:text-xs md:max-w-14 lg:text-base ">
+                <div
+                  className={cn(
+                    "h-full items-center flex gap-8 border-b-2 border-gray-800 justify-stretch text-sm pb-4 md:gap-12 md:text-base",
+                    {
+                      "gap-4": width! < 360,
+                    }
+                  )}
+                >
+                  <div className="flex w-[50%] min-w-[35px] md:w-1/4 md:min-w-12 md:text-xs md:max-w-full lg:text-base ">
                     <p>Flag</p>
                   </div>
                   <div className="flex w-full md:text-xs lg:text-base">
@@ -269,13 +276,18 @@ export const CountryPage = () => {
                   {filteredCountries.map((country) => (
                     <div
                       key={country.name.common}
-                      className="flex gap-8 justify-stretch items-center text-sm md:text-base md:gap-12"
+                      className={cn(
+                        "flex gap-8 justify-stretch items-center text-sm md:text-base md:gap-12 ",
+                        {
+                          "gap-4": width! < 360,
+                        }
+                      )}
                     >
-                      <div className="flex w-[50%] md:w-1/4 min-w-[35px] max-w-14 md:min-w-12">
+                      <div className="flex w-[50%] md:w-1/4 min-w-[35px] md:min-w-12 ">
                         <img
                           src={country.flags.png}
                           alt={`Flag of ${country.name.common}`}
-                          className="h-10 rounded-sm shadow w-full"
+                          className="h-10 rounded-sm shadow w-full max-w-14 "
                         />
                       </div>
                       <div className="flex w-full md:text-xs lg:text-base">

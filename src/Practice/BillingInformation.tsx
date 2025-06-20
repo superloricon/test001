@@ -311,7 +311,7 @@ export const BillingInformation = () => {
                 )}
               </div>
               <div className="w-full space-y-1">
-                <label htmlFor="cardverifictionvalue">CVV</label>
+                <label htmlFor="cardverificationvalue">CVV</label>
                 <input
                   id="cardverificationvalue"
                   value={cvvField.state.value}
