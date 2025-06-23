@@ -101,7 +101,7 @@ export const CountryPage = () => {
     });
 
   return (
-    <>
+    <div className="w-full">
       <div className="h-full w-full px-4 md:px-20">
         <div className="font-bold sm:text-3xl text-xl md:pb-10 pb-8 ">
           Practice 08: CountryPage.
@@ -310,6 +310,6 @@ export const CountryPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

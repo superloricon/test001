@@ -1,9 +1,7 @@
 import { useState } from "react";
 
 export const Textarea = () => {
-  const [text, setText] = useState(
-    "adasdasdasdadadasddasddadadadasdadadasdadadadasddsadasdsadasgdfdafdtafdtdsatydfdtafdtadfadfatydafdadasdgasdgastdtdfsafdtsftdfastydfastdfadtyafdatydfdtasfdtasfdtysadfastydsfdtasfdtyadftydsafdtyadftdafdtyadftsfdtyfstyadfatydfatydfdtyafdatydfsdytfsadyta"
-  );
+  const [text, setText] = useState("");
   const maxLength = 250;
   const isLimitReached = text.length >= maxLength;
 

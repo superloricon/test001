@@ -26,7 +26,6 @@ export const BillingInformation = () => {
     onSubmit: async ({ value }) => {
       try {
         console.log("Submitted billing info:", value);
-        // 模拟请求
         await new Promise((res) => setTimeout(res, 1000));
 
         toast.success("Billing information saved successfully!");
@@ -63,8 +62,8 @@ export const BillingInformation = () => {
         return "Enter a valid expiration date";
       }
       const now = new Date();
-      const currentMonth = now.getMonth() + 1; // JavaScript months are 0-based
-      const currentYear = now.getFullYear() % 100; // Convert to 2-digit year
+      const currentMonth = now.getMonth() + 1;
+      const currentYear = now.getFullYear() % 100;
       if (
         numericYear < currentYear ||
         (numericYear === currentYear && numericMonth < currentMonth)
@@ -86,9 +85,6 @@ export const BillingInformation = () => {
     country: ({ value }: { value: string }) => {
       if (!value) return "Country is required";
     },
-    // address: ({ value }: { value: string }) => {
-    //   if (!value) return "Address is required";
-    // },
     address: () => {
       if (address1 === "") return "Address is required";
     },
@@ -202,7 +198,7 @@ export const BillingInformation = () => {
   };
 
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const cleaned = e.target.value.replace(/\D/g, ""); // 纯数字
+    const cleaned = e.target.value.replace(/\D/g, "");
     cardNumberField.setValue(cleaned);
 
     const detectedType = detectCardType(cleaned);
@@ -234,7 +230,7 @@ export const BillingInformation = () => {
       <div className="font-bold text-xl sm:text-3xl pb-8 md:pb-10 ">
         Practice 07: Billing Information
       </div>
-      <form onSubmit={handleFormSubmit} className="py-10">
+      <form onSubmit={handleFormSubmit}>
         <p className="font-semibold text-xl">Billing Information</p>
         <p className="text-gray-500 text-sm mt-2">
           Update your billing details and addresss

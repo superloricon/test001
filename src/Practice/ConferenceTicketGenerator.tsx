@@ -1,13 +1,8 @@
 import { useRef, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
-// interface FormValues {
-//   name: string;
-//   email: string;
-//   username: string;
-//   avatar: File | null;
-// }
+import { cn } from "../utils/cn";
+import { useScreenSize } from "../hooks/useScreenSize";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
@@ -30,7 +25,7 @@ const validationSchema = Yup.object({
       "File too large. Please upload a photo under 500 KB",
       (value) => {
         if (value && value instanceof File) {
-          return value.size <= 200 * 1024; // 200KB
+          return value.size <= 200 * 1024;
         }
         return false;
       }
@@ -41,17 +36,17 @@ export const ConferenceTicketGenerator = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [generateTicket, setGenerateTicket] = useState(false);
   const [ticketNumber, setTicketNumber] = useState<string>("#00000");
+  const { width } = useScreenSize();
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
       username: "",
-      avatar: null as File | null, // 明确类型
+      avatar: null as File | null,
     },
     validationSchema,
     onSubmit: () => {
-      // Generate ticket after form submission (for demo purposes)
-      const random = Math.floor(10000 + Math.random() * 90000); // 保证5位
+      const random = Math.floor(10000 + Math.random() * 90000);
       setTicketNumber(`#${random}`);
       setGenerateTicket(true);
     },
@@ -93,12 +88,15 @@ export const ConferenceTicketGenerator = () => {
 
               {!generateTicket ? (
                 <div>
-                  <p className="font-bold text-center mt-8 text-2xl max-w-[300px] sm:max-w-[500px] sm:text-3xl ">
-                    Your Journey to Coding Conf 2025 Starts Here!
-                  </p>
-                  <p className="font-semibold text-gray-300 text-center mt-3 text-base max-w-[250px] sm:text-base sm:max-w-[450px] ">
-                    Secure your spot at next year's biggest coding conference.
-                  </p>
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="font-bold text-center mt-8 text-2xl sm:text-3xl ">
+                      Your Journey to Coding Conf 2025 Starts Here!
+                    </p>
+                    <p className="font-semibold text-gray-300 text-center mt-3  ">
+                      Secure your spot at next year's biggest coding conference.
+                    </p>
+                  </div>
+
                   <div className="pt-8 flex flex-col gap-4">
                     {/* Avantar Field */}
                     <div>
@@ -170,7 +168,7 @@ export const ConferenceTicketGenerator = () => {
                                 alt="icon-upload"
                               />
                             </div>
-                            <p className="text-gray-400 mt-3">
+                            <p className="text-gray-400 mt-3 text-center">
                               Drag and drop or click to upload
                             </p>
                           </>
@@ -291,38 +289,85 @@ export const ConferenceTicketGenerator = () => {
                 </div>
               ) : (
                 <div>
-                  <p className="font-bold text-center mt-8 text-2xl max-w-[300px] sm:max-w-[500px] sm:text-3xl ">
-                    Congrats, Jonatan Kristof! Your ticket is ready.
-                  </p>
-                  <div className="flex ">
-                    <p className="font-semibold text-gray-300 text-center mt-6 text-base max-w-[250px] sm:text-base sm:max-w-[450px] ">
-                      We've emailed your ticket to
+                  <div className="flex flex-col justify-center items-center">
+                    <p className="font-bold text-center mt-8 text-2xl sm:text-3xl">
+                      Congrats,{" "}
+                      <span className="bg-gradient-to-r from-[#ff8c6b] to-white bg-clip-text text-transparent">
+                        {formik.values.email}
+                      </span>{" "}
+                      Your ticket is ready.
                     </p>
-                    <p className="font-semibold text-gray-300 text-center mt-6 text-base max-w-[250px] sm:text-base sm:max-w-[450px] ">
-                      janatan@email.com
-                    </p>
-                    <p className="font-semibold text-gray-300 text-center mt-6 text-base max-w-[250px] sm:text-base sm:max-w-[450px] ">
+                    <p className="font-semibold text-gray-300 text-center mt-6">
+                      We've emailed your ticket to{" "}
+                      <span className="text-[#da7877]">
+                        {formik.values.email}
+                      </span>{" "}
                       and will send updates in the run up to the event
                     </p>
                   </div>
 
-                  <div className="relative mt-16">
+                  <div className="relative mt-16 flex items-center justify-center">
                     <img
                       src="Images/CTicketGenerator/pattern-ticket.svg"
-                      className="absolute"
+                      className={cn("absolute w-[268px]", {
+                        "w-[343px]": width! >= 375,
+                        "w-auto": width! >= 482,
+                      })}
                     />
-                    <div className="flex justify-between rounded-lg ">
-                      <div className="p-4 flex flex-col justify-between max-w-[340px] min-h-[210px]">
+                    <div
+                      className={cn(
+                        "flex justify-between rounded-lg w-[268px] h-[125px]",
+                        {
+                          "w-[343px] h-[160px]": width! >= 375,
+                          "w-[450px] h-[210px]": width! >= 482,
+                        }
+                      )}
+                    >
+                      <div
+                        className={cn(
+                          "p-4 w-full flex flex-col justify-between ",
+                          {
+                            "py-6": width! >= 482,
+                          }
+                        )}
+                      >
                         <div className="flex gap-3 font-bold ">
                           <img
                             src="Images/CTicketGenerator/logo-mark.svg"
-                            className="w-7 h-7 mt-1"
+                            className={cn("w-6 h-6 mt-1", {
+                              "w-7 h-7": width! >= 375,
+                            })}
                             alt="logo-mark"
                           />
-                          <div className="flex flex-col gap-2">
-                            <p className="text-2xl font-medium">Coding Conf</p>
-                            <div className="text-xs text-gray-500 gap-2 flex">
-                              <p>Jan 31, 2025</p> /<p> Austin,TX</p>
+                          <div
+                            className={cn("flex flex-col gap-1", {
+                              "gap-2": width! >= 375,
+                            })}
+                          >
+                            <p
+                              className={cn("text-base font-medium", {
+                                "text-xl": width! >= 375,
+                                "text-2xl": width! >= 482,
+                              })}
+                            >
+                              Coding Conf
+                            </p>
+                            <div
+                              className={cn(
+                                "text-[11px] text-gray-500 gap-2 flex",
+                                {
+                                  "text-xs": width! >= 375,
+                                }
+                              )}
+                            >
+                              <p>
+                                {new Date().toLocaleDateString("en-US", {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                })}
+                              </p>
+                              /<p> Austin,TX</p>
                             </div>
                           </div>
                         </div>
@@ -331,25 +376,69 @@ export const ConferenceTicketGenerator = () => {
                             <img
                               src={URL.createObjectURL(formik.values.avatar)}
                               alt="User Avatar"
-                              className="w-14 object-cover rounded-full "
+                              className={cn(
+                                "w-full max-w-10 mt-4 object-cover rounded-lg ",
+                                {
+                                  "max-w-12 mt-2": width! >= 375,
+                                  "max-w-14 mt-0": width! >= 482,
+                                }
+                              )}
                             />
                           )}
                           <div className="flex flex-col gap-1 h-full justify-end">
-                            <p className="text-xl font-medium">
+                            <p
+                              className={cn(
+                                "text-base font-medium max-w-[140px] overflow-hidden whitespace-nowrap text-ellipsis",
+                                {
+                                  "text-xl": width! >= 375,
+                                  "max-w-[240px]": width! >= 482,
+                                }
+                              )}
+                              title={formik.values.name}
+                            >
                               {formik.values.name}
                             </p>
-                            <div className="text-xs text-gray-500 gap-1 flex items-end">
+                            <div
+                              className={cn(
+                                "text-[11px] text-gray-500 gap-1 flex items-end",
+                                {
+                                  "text-xs": width! >= 375,
+                                }
+                              )}
+                            >
                               <img
                                 src="/Images/CTicketGenerator/icon-github.svg"
                                 alt="icon-github"
                                 className="size-4"
                               />
-                              <p> {formik.values.email}</p>
+                              <p
+                                className={cn(
+                                  "text-xs max-w-[120px] overflow-hidden whitespace-nowrap text-ellipsis",
+                                  {
+                                    "max-w-[220px]": width! >= 482,
+                                  }
+                                )}
+                                title={formik.values.name}
+                              >
+                                {formik.values.name}
+                              </p>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center rotate-90 min-w-1 text-[#8277a4] text-xl mr-2">
+                      <div
+                        className={cn(
+                          "flex justify-center min-w-1 text-[#8277a4] text-xl mr-3",
+                          {
+                            "mr-4": width! >= 375,
+                            "mr-6": width! >= 482,
+                          }
+                        )}
+                        style={{
+                          writingMode: "vertical-rl",
+                          textOrientation: "mixed",
+                        }}
+                      >
                         {ticketNumber}
                       </div>
                     </div>
