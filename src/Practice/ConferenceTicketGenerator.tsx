@@ -377,10 +377,10 @@ export const ConferenceTicketGenerator = () => {
                               src={URL.createObjectURL(formik.values.avatar)}
                               alt="User Avatar"
                               className={cn(
-                                "w-full max-w-10 mt-4 object-cover rounded-lg ",
+                                "w-full max-w-10 max-h-10 mt-4 object-cover rounded-lg ",
                                 {
-                                  "max-w-12 mt-2": width! >= 375,
-                                  "max-w-14 mt-0": width! >= 482,
+                                  "max-w-12 max-h-12 mt-2": width! >= 375,
+                                  "max-w-14 max-h-14 mt-0": width! >= 482,
                                 }
                               )}
                             />
