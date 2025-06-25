@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Toast from "./Toast";
+import { useScreenSize } from "../hooks/useScreenSize";
+import { cn } from "../utils/cn";
 
 type ToastType = "success" | "error" | "warning" | "info";
 
@@ -20,9 +22,14 @@ export const ToastButton: React.FC = () => {
     setToast({ type, message: messages[type] });
   };
 
+  const { width } = useScreenSize();
   return (
     <div className="h-full w-full px-4 md:px-20">
-      <div className="font-bold sm:text-3xl text-xl md:pb-10 pb-8 ">
+      <div
+        className={cn("font-bold sm:text-3xl text-xl md:pb-10 pb-8", {
+          "text-2xl": width! >= 400,
+        })}
+      >
         Practice 04: Toast
       </div>
       <div className="flex flex-col space-y-4">

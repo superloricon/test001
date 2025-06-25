@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FiChevronLeft } from "react-icons/fi";
 import { FiChevronRight } from "react-icons/fi";
+import { useScreenSize } from "../hooks/useScreenSize";
+import { cn } from "../utils/cn";
 
 interface FlashCard {
   id: number;
@@ -34,6 +36,7 @@ export const FlashCards = () => {
   const [cards, setCards] = useState<FlashCard[]>(initialCards);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  const { width } = useScreenSize();
 
   const progress =
     (cards.filter((card) => card.isCompleted).length / cards.length) * 100;
@@ -59,7 +62,11 @@ export const FlashCards = () => {
 
   return (
     <div className="h-full w-full px-4 md:px-20">
-      <div className="font-bold text-xl sm:text-3xl md:pb-10 pb-8">
+      <div
+        className={cn("font-bold sm:text-3xl md:py-10 pb-8 text-xl", {
+          "text-2xl": width! >= 400,
+        })}
+      >
         Practice 02: FlashCard
       </div>
 

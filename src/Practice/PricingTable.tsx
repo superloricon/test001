@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useScreenSize } from "../hooks/useScreenSize";
+import { cn } from "../utils/cn";
 
 interface PricingPlan {
   name: string;
@@ -56,10 +58,15 @@ const featureTitles = [
 
 export const PricingTable: React.FC = () => {
   const [hoveredCol, setHoveredCol] = useState<number | null>(null);
+  const { width } = useScreenSize();
 
   return (
     <div className="h-full w-full px-4 md:px-20">
-      <div className="font-bold sm:text-3xl text-xl md:pb-10 pb-8 ">
+      <div
+        className={cn("font-bold sm:text-3xl text-xl md:pb-10 pb-8 ", {
+          "text-2xl": width! >= 400,
+        })}
+      >
         Practice 03: Pricing Table
       </div>
       <div className="flex flex-col items-center justify-center ">

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useScreenSize } from "../hooks/useScreenSize";
+import { cn } from "../utils/cn";
 
 export const Textarea = () => {
   const [text, setText] = useState("");
@@ -11,9 +13,15 @@ export const Textarea = () => {
     }
   };
 
+  const { width } = useScreenSize();
+
   return (
     <div className="relative w-full px-4 md:px-20">
-      <div className="font-bold sm:text-3xl md:py-10 py-8 text-xl">
+      <div
+        className={cn("font-bold sm:text-3xl md:py-10 py-8 text-xl", {
+          "text-2xl": width! >= 400,
+        })}
+      >
         Practice 01: Textarea
       </div>
       <div

@@ -3,12 +3,15 @@ import { useState } from "react";
 import Select from "react-select";
 import usStates from "../json/usStates.json";
 import { toast } from "react-hot-toast";
+import { useScreenSize } from "../hooks/useScreenSize";
+import { cn } from "../utils/cn";
 
 export const BillingInformation = () => {
   const [cardType, setCardType] = useState<string | null>(null);
   const [isDirty, setIsDirty] = useState<boolean>(false);
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
+  const { width } = useScreenSize();
 
   const form = useForm({
     defaultValues: {
@@ -227,7 +230,11 @@ export const BillingInformation = () => {
 
   return (
     <div className="h-full w-full px-4 md:px-20">
-      <div className="font-bold text-xl sm:text-3xl pb-8 md:pb-10 ">
+      <div
+        className={cn("font-bold text-xl sm:text-3xl pb-8 md:pb-10 ", {
+          "text-2xl": width! >= 400,
+        })}
+      >
         Practice 07: Billing Information
       </div>
       <form onSubmit={handleFormSubmit}>
